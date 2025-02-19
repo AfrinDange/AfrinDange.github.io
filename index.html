@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Afrin Dange</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+        }
+        .footer {
+            text-align: right;
+            padding: 15px;
+            background: transparent !important;
+            font-weight: 600;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .list-group-item {
+            border-left: 5px solid #007bff;
+            background: transparent !important;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-family: 'Courier Prime', monospace;
+        }
+        .custom-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .scrollable-updates {
+            max-height: 250px; /* Adjust this based on your desired height (3-5 updates) */
+            overflow-y: auto;
+            padding-right: 10px; /* Adds space to avoid scrollbar overlap */
+            border: 1px solid #ddd; /* Optional: Adds a border for better visibility */
+            border-radius: 8px;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
+        }
+
+        /* Styling scrollbar (optional) */
+        .scrollable-updates::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scrollable-updates::-webkit-scrollbar-thumb {
+            background-color: #007bff;
+            border-radius: 10px;
+        }
+
+        .scrollable-updates::-webkit-scrollbar-track {
+            background-color: #f8f9fa;
+        }
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .profile-links a {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./soon.html">Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./soon.html">CV</a>
+                    </li>
+                    <li>
+                        <button id="themeToggle" class="btn btn-outline-secondary">
+                            <i id="themeIcon" class="bi"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 content-container">
+        <div class="row align-items-center">
+            <!-- <div class="col-md-6 text-center">
+                <img src="profile.jpg" class="img-fluid custom-img" alt="Profile Image">
+            </div> -->
+            <div class="col-md-6 container mt-5 content-container text-center">
+                <img src="profile.jpg" class="custom-img" alt="Profile Image">
+                <h2 class="profile-name">Afrin Dange</h2>
+                <p>MS by Research @ CMInDS, IIT Bombay</p>
+                <div class="profile-links">
+                    <!-- <a href="#" target="_blank"><i class="bi bi-google-scholar"></i> Google Scholar</a> -->
+                    <a href="https://scholar.google.com/citations?hl=en&user=NZFX5LIAAAAJ" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Google Scholar" role="img" viewBox="0 0 512 512" width="24" height="24">
+                            <rect width="512" height="512" rx="15%" fill="#4285f4"></rect>
+                            <path fill="#ffffff" d="M213 111l-107 94h69c5 45 41 64 78 67-7 18-4 27 7 39-43 1-103 26-103 67 4 45 63 54 92 54 38 1 81-19 90-54 4-35-10-54-31-71-23-18-28-28-21-40 15-17 35-27 39-51 2-17-2-28-6-43l45-38-1 16c-3 2-5 6-5 9v103c2 13 22 11 23 0V160c0-3-2-7-5-8v-25l16-16zm58 141c-61 10-87-87-38-99 56-11 83 86 38 99zm-5 73c60 13 61 63 10 78-44 9-82-4-81-30 0-25 35-48 71-48z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/AfrinDange" target="_blank" aria-label="GitHub Profile">
+                        <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.49936 0.850006C3.82767 0.850006 0.849976 3.8273 0.849976 7.50023C0.849976 10.4379 2.75523 12.9306 5.39775 13.8104C5.73047 13.8712 5.85171 13.6658 5.85171 13.4895C5.85171 13.3315 5.846 12.9135 5.84273 12.3587C3.99301 12.7604 3.60273 11.4671 3.60273 11.4671C3.30022 10.6988 2.86423 10.4942 2.86423 10.4942C2.26044 10.0819 2.90995 10.0901 2.90995 10.0901C3.57742 10.137 3.9285 10.7755 3.9285 10.7755C4.52167 11.7916 5.48512 11.4981 5.86396 11.3279C5.92438 10.8984 6.09625 10.6053 6.28608 10.4391C4.80948 10.2709 3.25695 9.70063 3.25695 7.15241C3.25695 6.42615 3.51618 5.83298 3.94157 5.368C3.87299 5.1998 3.64478 4.52375 4.00689 3.60807C4.00689 3.60807 4.56494 3.42926 5.83538 4.28941C6.36568 4.14204 6.93477 4.06856 7.50018 4.0657C8.06518 4.06856 8.63386 4.14204 9.16498 4.28941C10.4346 3.42926 10.9918 3.60807 10.9918 3.60807C11.3548 4.52375 11.1266 5.1998 11.0584 5.368C11.4846 5.83298 11.7418 6.42615 11.7418 7.15241C11.7418 9.70716 10.1868 10.2693 8.70571 10.4338C8.94412 10.6392 9.15681 11.045 9.15681 11.6655C9.15681 12.5542 9.14865 13.2715 9.14865 13.4895C9.14865 13.6675 9.26867 13.8745 9.60588 13.8095C12.2464 12.9282 14.15 10.4375 14.15 7.50023C14.15 3.8273 11.1723 0.850006 7.49936 0.850006Z" fill="black"></path>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/afrin-dange/" target="_blank">
+                        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                            <g fill="none"> 
+                                <path d="M0 18.338C0 8.216 8.474 0 18.92 0h218.16C247.53 0 256 8.216 256 18.338v219.327C256 247.79 247.53 256 237.08 256H18.92C8.475 256 0 247.791 0 237.668V18.335z" fill="#069"></path> 
+                                <path d="M77.796 214.238V98.986H39.488v115.252H77.8zM58.65 83.253c13.356 0 21.671-8.85 21.671-19.91-.25-11.312-8.315-19.915-21.417-19.915-13.111 0-21.674 8.603-21.674 19.914 0 11.06 8.312 19.91 21.169 19.91h.248zM99 214.238h38.305v-64.355c0-3.44.25-6.889 1.262-9.346 2.768-6.885 9.071-14.012 19.656-14.012 13.858 0 19.405 10.568 19.405 26.063v61.65h38.304v-66.082c0-35.399-18.896-51.872-44.099-51.872-20.663 0-29.738 11.549-34.78 19.415h.255V98.99H99.002c.5 10.812-.003 115.252-.003 115.252z" fill="#ffffff"></path> 
+                            </g>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/afrin_dange" target="_blank" aria-label="X Profile">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 30 30">
+                            <path d="M26.37,26l-8.795-12.822l0.015,0.012L25.52,4h-2.65l-6.46,7.48L11.28,4H4.33l8.211,11.971L12.54,15.97L3.88,26h2.65 l7.182-8.322L19.42,26H26.37z M10.23,6l12.34,18h-2.1L8.12,6H10.23z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <p style="text-align: justify;">Hi! I am a final-year MS by Research student at Centre for Machine Intelligence and Data Science, IIT Bombay, where I work as a research assistant for Prof. Sunita Sarawagi. My research primarily focuses on foundation models, lightweight adaptation of foundation models and time series modeling. </p>
+                <p style="text-align: justify;">I am eager to pursue a PhD and want to build a compelling profile for top programs. To continue exploring new problems, I am actively seeking research opportunities as a Research Assistant or Predoctoral Researcher.</p> 
+                <p style="text-align: justify;">My research interests lie in generalizable foundation models and improving pretrained networks through lightweight adaptation. I am broadly interested in representation learning, time series modeling, multimodality, reasoning, and information retrieval.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 content-container">
+        <h2 class="mb-3">Updates</h2>
+        <ul class="list-group scrollable-updates">
+            <li class="list-group-item">📅 <strong>[Jan 2025]</strong> Attended Google DeepMind Research Symposium at Bangalore</li>
+            <li class="list-group-item">📅 <strong>[Jan 2025]</strong> Attended RL Workshop at IISc Bangalore</li>
+            <li class="list-group-item">📅 <strong>[Jan 2025]</strong> Teaching Assistant for CS726: Advanced Machine Learning.</li>
+            <li class="list-group-item">📅 <strong>[Nov 2024]</strong> Reviewer for ICLR 2025</li>
+            <li class="list-group-item">📅 <strong>[Aug 2024]</strong> Delivered a talk on “Conditional Generation Using GANs and Diffusion Models” at an ISTE-approved Program</li>
+            <li class="list-group-item">📅 <strong>[July 2024]</strong> Published a paper in ICML 2024 TF2M Workshop</li>
+            <li class="list-group-item">📅 <strong>[Feb 2024]</strong> Delivered a talk on “Generative AI for Vision” at an ISTE-approved Program</li>
+        </ul>
+    </div>
+
+    <footer class="footer">
+        &copy; 2025
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlElement = document.documentElement;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+
+            // Get the stored theme or default to dark
+            const currentTheme = localStorage.getItem('bsTheme') || 'dark';
+            htmlElement.setAttribute('data-bs-theme', currentTheme);
+            updateIcon(currentTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                htmlElement.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('bsTheme', newTheme);
+                updateIcon(newTheme);
+            });
+
+            function updateIcon(theme) {
+                themeIcon.className = theme === 'dark' ? 'bi bi-moon' : 'bi bi-sun';
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+</body>
+</html>
