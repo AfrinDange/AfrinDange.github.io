@@ -173,7 +173,7 @@
             const themeIcon = document.getElementById('themeIcon');
 
             // Get the stored theme or default to dark
-            const currentTheme = localStorage.getItem('bsTheme') || 'dark';
+            const currentTheme = localStorage.getItem('bsTheme') || 'light';
             htmlElement.setAttribute('data-bs-theme', currentTheme);
             updateIcon(currentTheme);
 
