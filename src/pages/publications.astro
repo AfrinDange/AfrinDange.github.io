@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Github, Link, LibraryBig } from 'lucide-astro';
+
+import pub1Image from '../assets/publications/variants_icml2024_tf2m.png';
+
+const publications = [
+  {
+    image: pub1Image,
+    title: 'Transformer Designs for In-Context Learning in Foundation Models for Time Series Forecasting with Covariates',
+    authors: '<strong>Afrin Dange</strong>, Vaibhav Raj, Sunita Sarawagi, Praneeth Netrapalli',
+    venue: 'ICML 2024 Workshop on Theoretical Foundations of Foundation Models',
+    paperLink: 'https://openreview.net/forum?id=cEMQhGJfcP',
+    codeLink: null
+  },
+];
+---
+
+<Layout>
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-heading font-bold mb-8 flex items-center gap-2 text-theme-textDark dark:text-theme-textLight">
+      <LibraryBig class="w-6 h-6 text-theme-accent shrink-0" />
+      <span>Publications</span>
+    </h1>
+
+    <div class="space-y-10">
+      {publications.map(pub => (
+        <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+          <img
+            src={pub.image.src}
+            alt="Publication preview"
+            class="w-full sm:w-36 sm:h-36 aspect-square object-cover rounded-md shadow cursor-pointer transition duration-300 ease-in-out hover:opacity-80 hover:scale-105"
+            data-full-img={pub.image.src}
+          />
+
+          <div class="flex-1">
+            <h2 class="text-xl font-heading font-semibold mb-1 text-theme-textDark dark:text-theme-textLight">
+              {pub.title}
+            </h2>
+            <p class="mb-1 text-base" set:html={pub.authors}></p>
+            <p class="text-sm opacity-70 mb-2">{pub.venue}</p>
+
+            <div class="flex gap-4 mt-2 text-sm">
+              <a
+                href={pub.paperLink}
+                target="_blank"
+                class="flex items-center gap-1 hover:underline"
+              >
+                <Link class="w-5 h-5 text-theme-accent" />
+                <span class="sr-only">Paper</span>
+              </a>
+
+              {pub.codeLink && (
+                <a
+                  href={pub.codeLink}
+                  target="_blank"
+                  class="flex items-center gap-1 hover:underline"
+                >
+                  <Github class="w-5 h-5 text-theme-accent" />
+                  <span class="sr-only">Code</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div id="image-modal" class="fixed inset-0 z-50 bg-black/70 hidden transition-opacity">
+    <div class="flex items-center justify-center w-full h-full">
+      <img id="modal-img" src="" alt="Full image" class="max-h-[90vh] max-w-[90vw] rounded shadow-lg" />
+    </div>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('modal-img');
+
+      document.querySelectorAll('[data-full-img]').forEach(img => {
+        img.addEventListener('click', () => {
+          modalImg.src = img.getAttribute('data-full-img');
+          modal.style.display = 'flex';
+        });
+      });
+
+      modal.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+    });
+  </script>
+</Layout>

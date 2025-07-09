@@ -1,0 +1,11 @@
+---
+const { title, teaser, date, href } = Astro.props;
+---
+
+<a href={href} class="block rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+  <div class="flex justify-between items-center mb-2">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white">{title}</h2>
+    <span class="text-sm text-gray-500 dark:text-gray-400">{date}</span>
+  </div>
+  <p class="text-gray-600 dark:text-gray-300">{teaser}</p>
+</a>

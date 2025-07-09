@@ -1,0 +1,42 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import VisitorCount from '../components/VisitorCount.astro';
+import "../styles/global.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Official website of Afrin Dange, CMInDS IIT Bombay. Research in in-context learning, foundation models for time series and adaptation techniques." />
+    <meta name="keywords" content="Afrin Dange, research, time series, AI, foundation models, CMInDS, IIT Bombay, in-context learning" />
+    <meta name="author" content="Afrin Dange" />
+    <title>Afrin Dange</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://afrindange.github.io/" />
+
+    <meta property="og:title" content="Afrin Dange" />
+    <meta property="og:description" content="Research in in-context learning, foundation models for time series and adaptation techniques." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://afrindange.github.io/" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Afrin Dange" />
+    <meta name="twitter:description" content="Research in in-context learning, foundation models for time series and adaptation techniques." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  </head>
+  <body class="flex flex-col min-h-screen transition-colors duration-300">
+    <Header />
+    <main class="flex-grow px-4 py-6">
+      <slot />
+    </main>
+    <VisitorCount />
+    <Footer />
+  </body>
+</html>

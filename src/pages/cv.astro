@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FileDown } from 'lucide-astro';
+---
+
+<Layout>
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="hidden sm:block h-[82vh] overflow-hidden rounded border border-gray-200 dark:border-gray-700">
+      <iframe
+        src="/assets/afrin_dange_cv.pdf"
+        title="Afrin Dange CV"
+        class="w-full h-full border-none"
+      ></iframe>
+    </div>
+
+    <div class="block sm:hidden text-center space-y-4">
+      <a
+        href="/assets/afrin_dange_cv.pdf"
+        target="_blank"
+        aria-label="View CV"
+        class="inline-flex items-center justify-center w-12 h-12 bg-theme-accent text-white rounded-full shadow hover:opacity-90 transition"
+      >
+        <FileDown class="w-6 h-6" />
+      </a>
+    </div>
+  </div>
+</Layout>

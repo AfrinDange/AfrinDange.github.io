@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<Layout>
+  <section class="min-h-[70vh] flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-4xl font-bold mb-4 text-gray-800 dark:text-white">Coming Soon</h1>
+  </section>
+  <!--
+  <section class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-10 text-center">Blog</h1>
+
+    <div class="space-y-6">
+      {posts.map(post => (
+        <BlogCard
+          title={post.data.title}
+          teaser={post.data.teaser}
+          date={post.data.date}
+          href={`/blogs/${post.slug}`}
+        />
+      ))}
+    </div>
+  </section>
+  -->
+</Layout>

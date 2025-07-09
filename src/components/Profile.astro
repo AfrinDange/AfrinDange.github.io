@@ -1,0 +1,52 @@
+---
+import profilePic from "../assets/profile.png";
+---
+
+<section class="max-w-5xl mx-auto px-4 mt-8 flex flex-col md:flex-row items-center md:items-start gap-4">
+  <div class="flex flex-col items-center gap-5 w-full md:w-1/3 group text-center">
+    <img
+      src={profilePic.src}
+      alt="Profile photo"
+      class="w-52 h-52 sm:w-56 sm:h-56 rounded-full object-cover shadow-md ring-2 ring-[#c4b5fd] transform transition duration-300 group-hover:scale-105 group-hover:ring-theme-accent group-hover:shadow-lg"
+    />
+
+    <div class="flex gap-5 text-theme-textDark dark:text-theme-textLight text-2xl justify-center">
+      <a href="https://scholar.google.com/citations?user=NZFX5LIAAAAJ&hl=en&oi=ao" target="_blank" aria-label="Google Scholar" class="hover:text-theme-accent hover:scale-110 transition-transform duration-200">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/afrin-dange/" target="_blank" aria-label="LinkedIn" class="hover:text-theme-accent hover:scale-110 transition-transform duration-200">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/AfrinDange/" target="_blank" aria-label="GitHub" class="hover:text-theme-accent hover:scale-110 transition-transform duration-200">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://x.com/afrin_dange/" target="_blank" aria-label="Twitter" class="hover:text-theme-accent hover:scale-110 transition-transform duration-200">
+        <i class="fab fa-x-twitter"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="flex-1 opacity-0 animate-fade-in animation-delay-150">
+    <h1 class="text-3xl font-heading font-bold mb-2">Hi, I'm Afrin 👋</h1>  
+
+    <p class="mb-3 text-lg text-justify">
+      I recently completed my MS by Research at 
+      <a href="https://www.minds.iitb.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:text-theme-accent underline underline-offset-2">
+        CMInDS, IIT Bombay
+      </a>, 
+      where I had the privilege of working with 
+      <a href="https://www.cse.iitb.ac.in/~sunita/" target="_blank" rel="noopener noreferrer" class="hover:text-theme-accent underline underline-offset-2">
+        Prof. Sunita Sarawagi
+      </a> 
+      on in-context learning, and the pretraining and adaptation of foundation models for time series. I was also fortunate to collaborate with 
+      <a href="https://praneethnetrapalli.org/" target="_blank" rel="noopener noreferrer" class="hover:text-theme-accent underline underline-offset-2">
+        Dr. Praneeth Netrapalli
+      </a>, where our joint work on in-context learning was presented at the ICML 2024 TF2M Workshop.
+    </p>
+
+    <p class="mb-3 text-lg text-justify">
+      I'm currently seeking research opportunities as a Research Assistant or Intern to explore new directions. I'm especially interested in inference-time techniques for improving generalization and reliability under uncertainty, and reasoning and planning. If you're hiring, I'd love to hear from you 🙂 
+    </p>
+  </div>
+
+</section>

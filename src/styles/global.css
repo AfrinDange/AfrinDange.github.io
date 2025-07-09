@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-theme-textDark bg-theme-bgLight dark:text-theme-textLight dark:bg-theme-bgDark;
+  }
+
+  p  { @apply text-lg leading-relaxed; }
+
+
+  h1, h2, h3, h4 {
+    @apply font-heading text-theme-textDark dark:text-theme-textLight text-4xl md:text-5xl leading-tight;
+  }
+
+  a {
+    @apply hover:text-theme-accent hover:underline hover:underline-offset-2 transition-colors;
+  }
+
+  header, footer {
+    @apply bg-theme-bgLight dark:bg-theme-bgDark text-theme-textDark dark:text-theme-textLight;
+  }
+
+  hr {
+    @apply border-theme-textDark/20 dark:border-theme-textLight/20;
+  }
+
+  code {
+    @apply bg-theme-bgDark text-theme-accent px-1 py-0.5 rounded;
+  }
+
+  a, button {
+    @apply transition-colors;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    @apply opacity-0 animate-fade-in-start;
+  }
+
+  .animation-delay-150 {
+    animation-delay: 150ms;
+  }
+
+  @keyframes fade-in-start {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-start {
+    animation: fade-in-start 0.6s ease-out forwards;
+  }
+
+  .text-dark {
+    @apply text-theme-textDark dark:text-theme-textLight;
+  }
+
+  .text-light {
+    @apply text-theme-textLight dark:text-theme-textDark;
+  }
+}
+
+::selection {
+  background-color: #7c3aed;
+  color: white;
+}
