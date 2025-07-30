@@ -4,16 +4,11 @@ import { FileDown } from 'lucide-astro';
 ---
 
 <Layout>
-  <div class="max-w-5xl mx-auto px-4">
-    <div class="hidden sm:block h-[82vh] overflow-hidden rounded border border-gray-200 dark:border-gray-700">
-      <iframe
-        src="/assets/afrin_dange_cv.pdf"
-        title="Afrin Dange CV"
-        class="w-full h-full border-none"
-      ></iframe>
-    </div>
+  <div class="max-w-5xl mx-auto px-4 space-y-4">
 
-    <div class="block sm:hidden text-center space-y-4">
+    <!-- Heading and Download button -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 gap-2">
+      <h1 class="text-2xl font-heading text-theme-textDark dark:text-theme-textLight">Curriculum Vitae</h1>
       <a
         href="/assets/afrin_dange_cv.pdf"
         target="_blank"
@@ -22,6 +17,15 @@ import { FileDown } from 'lucide-astro';
       >
         <FileDown class="w-6 h-6" />
       </a>
+    </div>
+
+    <!-- PDF viewer (iframe) -->
+    <div class="h-[60vh] overflow-hidden rounded border border-gray-200 dark:border-gray-700">
+      <iframe
+        src="/assets/afrin_dange_cv.pdf"
+        title="Afrin Dange CV"
+        class="w-full h-full border-none"
+      ></iframe>
     </div>
   </div>
 </Layout>
