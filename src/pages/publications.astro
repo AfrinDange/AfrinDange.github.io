@@ -3,12 +3,21 @@ import Layout from '../layouts/Layout.astro';
 import { Github, Link, LibraryBig } from 'lucide-astro';
 
 import pub1Image from '../assets/publications/variants_icml2024_tf2m.png';
+import pub2Image from '../assets/publications/tfmadapter.png';
 
 const publications = [
   {
+    image: pub2Image,
+    title: 'TFMAdapter: Lightweight Instance-Level Adaptation of Foundation Models for Forecasting with Covariates',
+    authors: '<strong>Afrin Dange</strong>, Sunita Sarawagi',
+    venue: 'CIKM 2025',
+    paperLink: null,
+    codeLink: 'https://github.com/AfrinDange/tfmadapter'
+  },
+  {
     image: pub1Image,
     title: 'Transformer Designs for In-Context Learning in Foundation Models for Time Series Forecasting with Covariates',
-    authors: '<strong>Afrin Dange</strong>, Vaibhav Raj, Sunita Sarawagi, Praneeth Netrapalli',
+    authors: '<strong>Afrin Dange</strong>, Vaibhav Raj, Praneeth Netrapalli, Sunita Sarawagi',
     venue: 'ICML 2024 Workshop on Theoretical Foundations of Foundation Models',
     paperLink: 'https://openreview.net/forum?id=cEMQhGJfcP',
     codeLink: null

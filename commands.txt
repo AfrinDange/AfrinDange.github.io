@@ -1,0 +1,11 @@
+npm astro dev
+
+npm astro build
+
+npm astro preview
+
+
+
+make sure dist has .nojekyll file
+
+and then only run npm run deploy
