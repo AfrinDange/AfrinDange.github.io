@@ -1,0 +1,514 @@
+<span id="profile-cat-home" class="profile-cat-home" aria-hidden="true"></span>
+
+<div
+  id="profile-cat"
+  class="profile-cat"
+  role="img"
+  aria-label="A sleeping orange calico pixel cat"
+></div>
+
+<style>
+  .profile-cat-home {
+    display: inline-block;
+    width: 4.5rem;
+    height: 3.5rem;
+    margin-left: 0.15rem;
+    vertical-align: middle;
+  }
+
+  .profile-cat {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    width: 96px;
+    height: 96px;
+    background-image: url("/assets/oneko.gif");
+    background-size: 768px 384px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 4px 3px rgb(55 32 20 / 0.16));
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  @media (max-width: 640px) {
+    .profile-cat-home {
+      width: 3.5rem;
+    }
+
+    .profile-cat {
+      width: 80px;
+      height: 80px;
+      background-size: 640px 320px;
+    }
+  }
+</style>
+
+<script>
+  type Direction = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
+
+  const sprites = {
+    idle: [[-3, -3]],
+    alert: [[-7, -3]],
+    sleeping: [[-2, 0], [-2, -1]],
+    N: [[-1, -2], [-1, -3]],
+    NE: [[0, -2], [0, -3]],
+    E: [[-3, 0], [-3, -1]],
+    SE: [[-5, -1], [-5, -2]],
+    S: [[-6, -3], [-7, -2]],
+    SW: [[-5, -3], [-6, -1]],
+    W: [[-4, -2], [-4, -3]],
+    NW: [[-1, 0], [-1, -1]],
+  } as const;
+
+  class ProfileCat {
+    cat: HTMLElement;
+    home: HTMLElement;
+    x = 0;
+    y = 0;
+    homeX = 0;
+    homeY = 0;
+    targetX = 0;
+    targetY = 0;
+    frame = 0;
+    awake = false;
+    waitingForClick = false;
+    pointerOverCat = false;
+    paused = false;
+    relocatingToClearSpot = false;
+    clearanceChecked = false;
+    clearanceFrame: number | null = null;
+    direction: Direction = "E";
+    scale = 3;
+
+    constructor(cat: HTMLElement, home: HTMLElement) {
+      this.cat = cat;
+      this.home = home;
+      this.scale = window.matchMedia("(max-width: 640px)").matches ? 2.5 : 3;
+
+      this.applyCalicoCoat();
+      this.measureHome();
+      this.x = this.homeX;
+      this.y = this.homeY;
+      this.targetX = this.homeX;
+      this.targetY = this.homeY;
+      this.render();
+      this.setSprite("sleeping", 0);
+
+      window.addEventListener("pointermove", (event) => this.follow(event));
+      window.addEventListener("click", (event) => this.toggleMovement(event));
+      window.addEventListener("resize", () => this.handleViewportChange());
+      window.addEventListener("scroll", () => this.handleViewportChange(), {
+        passive: true,
+      });
+      window.setInterval(() => this.tick(), 80);
+    }
+
+    applyCalicoCoat() {
+      const source = new Image();
+      source.src = "/assets/oneko.gif";
+      source.addEventListener("load", () => {
+        const sheet = document.createElement("canvas");
+        sheet.width = 256;
+        sheet.height = 128;
+        const context = sheet.getContext("2d", { willReadFrequently: true });
+        if (!context) return;
+
+        context.drawImage(source, 0, 0);
+        const image = context.getImageData(0, 0, sheet.width, sheet.height);
+        const pixels = image.data;
+
+        for (let y = 0; y < sheet.height; y += 1) {
+          for (let x = 0; x < sheet.width; x += 1) {
+            const index = (y * sheet.width + x) * 4;
+            if (pixels[index + 3] < 20) continue;
+
+            const localX = x % 32;
+            const localY = y % 32;
+            const frameX = Math.floor(x / 32);
+            const frameY = Math.floor(y / 32);
+            const seed = frameX * 19 + frameY * 31;
+            const luminance =
+              pixels[index] * 0.299 +
+              pixels[index + 1] * 0.587 +
+              pixels[index + 2] * 0.114;
+
+            let color: [number, number, number];
+
+            if (luminance < 105) {
+              color = [58, 39, 31];
+            } else {
+              const orangePatch =
+                (localX - (8 + (seed % 5))) ** 2 +
+                  (localY - (10 + ((seed * 2) % 6))) ** 2 <
+                  34 ||
+                (localX - (22 - (seed % 5))) ** 2 +
+                  (localY - (20 + (seed % 4))) ** 2 <
+                  23;
+              const darkPatch =
+                (localX - (18 + (seed % 6))) ** 2 +
+                  (localY - (10 + ((seed * 3) % 9))) ** 2 <
+                  18 ||
+                (localX - (7 + (seed % 3))) ** 2 +
+                  (localY - (21 - (seed % 5))) ** 2 <
+                  10;
+              const whiteChest =
+                localY > 24 ||
+                (localX - 16) ** 2 + (localY - 20) ** 2 < 12;
+              const innerEar =
+                localY < 7 &&
+                ((localX > 5 && localX < 13) ||
+                  (localX > 20 && localX < 28));
+
+              if (innerEar) {
+                color = [244, 170, 158];
+              } else if (whiteChest) {
+                color = [255, 250, 241];
+              } else if (darkPatch) {
+                color = [76, 53, 47];
+              } else if (orangePatch) {
+                color =
+                  (localX + localY + seed) % 7 < 2
+                    ? [246, 167, 80]
+                    : [224, 122, 35];
+              } else {
+                color = [255, 239, 213];
+              }
+            }
+
+            pixels[index] = color[0];
+            pixels[index + 1] = color[1];
+            pixels[index + 2] = color[2];
+          }
+        }
+
+        context.putImageData(image, 0, 0);
+        this.cat.style.backgroundImage = `url(${sheet.toDataURL("image/png")})`;
+      });
+    }
+
+    measureHome() {
+      const rect = this.home.getBoundingClientRect();
+      this.scale = window.matchMedia("(max-width: 640px)").matches ? 2.5 : 3;
+      this.homeX = rect.left - 12;
+      this.homeY = rect.top - 18;
+
+      if (!this.awake) {
+        this.x = this.homeX;
+        this.y = this.homeY;
+        this.targetX = this.homeX;
+        this.targetY = this.homeY;
+        this.render();
+      }
+    }
+
+    handleViewportChange() {
+      this.measureHome();
+
+      if (
+        !this.awake ||
+        (!this.paused &&
+          !this.waitingForClick &&
+          Math.hypot(this.targetX - this.x, this.targetY - this.y) >= 3)
+      ) {
+        return;
+      }
+
+      if (this.clearanceFrame !== null) {
+        cancelAnimationFrame(this.clearanceFrame);
+      }
+
+      this.clearanceFrame = requestAnimationFrame(() => {
+        this.clearanceFrame = null;
+        this.clearanceChecked = false;
+        this.keepClearOfText();
+      });
+    }
+
+    follow(event: PointerEvent) {
+      const pointerTargetX = event.clientX - this.cat.offsetWidth / 2;
+      const pointerTargetY = event.clientY - this.cat.offsetHeight / 2;
+
+      const catBounds = this.cat.getBoundingClientRect();
+      const isOverCat =
+        event.clientX >= catBounds.left - 6 &&
+        event.clientX <= catBounds.right + 6 &&
+        event.clientY >= catBounds.top - 6 &&
+        event.clientY <= catBounds.bottom + 6;
+
+      if (this.waitingForClick) {
+        this.pointerOverCat = isOverCat;
+        if (!this.relocatingToClearSpot) {
+          this.targetX = pointerTargetX;
+          this.targetY = pointerTargetY;
+          this.clearanceChecked = false;
+        }
+        this.cat.setAttribute(
+          "aria-label",
+          isOverCat
+            ? "An awake orange calico pixel cat waiting to follow the cursor"
+            : "A sleeping orange calico pixel cat waiting for a click",
+        );
+        return;
+      }
+
+      if (!this.awake || this.paused) {
+
+        if (!isOverCat) return;
+
+        this.targetX = pointerTargetX;
+        this.targetY = pointerTargetY;
+        this.clearanceChecked = false;
+        this.awake = true;
+        this.waitingForClick = true;
+        this.pointerOverCat = true;
+        this.paused = false;
+        this.cat.setAttribute(
+          "aria-label",
+          "An awake orange calico pixel cat waiting to follow the cursor",
+        );
+      }
+
+      this.relocatingToClearSpot = false;
+      this.targetX = pointerTargetX;
+      this.targetY = pointerTargetY;
+      this.clearanceChecked = false;
+
+      if (!this.waitingForClick && !this.paused) {
+        this.cat.setAttribute(
+          "aria-label",
+          "An orange calico pixel cat following the cursor",
+        );
+      }
+    }
+
+    toggleMovement(event: MouseEvent) {
+      if (!this.awake) return;
+
+      if (this.waitingForClick) {
+        this.waitingForClick = false;
+        this.pointerOverCat = false;
+        this.paused = false;
+        this.relocatingToClearSpot = false;
+        this.targetX = event.clientX - this.cat.offsetWidth / 2;
+        this.targetY = event.clientY - this.cat.offsetHeight / 2;
+        this.clearanceChecked = false;
+      } else {
+        this.paused = !this.paused;
+        if (this.paused) {
+          this.clearanceChecked = false;
+          this.keepClearOfText();
+        }
+      }
+
+      this.cat.setAttribute(
+        "aria-label",
+        this.paused
+          ? "A paused orange calico pixel cat"
+          : "An orange calico pixel cat following the cursor",
+      );
+    }
+
+    tick() {
+      this.frame += 1;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        this.setSprite("sleeping", Math.floor(this.frame / 7));
+        return;
+      }
+
+      if (this.relocatingToClearSpot) {
+        if (this.move()) {
+          this.setSprite(this.direction, Math.floor(this.frame / 2));
+        } else {
+          this.relocatingToClearSpot = false;
+          this.clearanceChecked = false;
+          this.setSprite("sleeping", Math.floor(this.frame / 7));
+        }
+      } else if (!this.awake) {
+        this.setSprite("sleeping", Math.floor(this.frame / 7));
+      } else if (this.waitingForClick) {
+        this.setSprite(
+          this.pointerOverCat ? "alert" : "sleeping",
+          Math.floor(this.frame / 7),
+        );
+      } else if (this.paused) {
+        this.setSprite("sleeping", Math.floor(this.frame / 7));
+      } else if (this.move()) {
+        this.setSprite(this.direction, Math.floor(this.frame / 2));
+      } else if (!this.clearanceChecked && this.keepClearOfText()) {
+        this.setSprite("alert", 0);
+      } else {
+        this.clearanceChecked = true;
+        this.setSprite("sleeping", Math.floor(this.frame / 7));
+      }
+
+      this.render();
+    }
+
+    move() {
+      const diffX = this.targetX - this.x;
+      const diffY = this.targetY - this.y;
+      const distance = Math.hypot(diffX, diffY);
+      if (distance < 2.5) return false;
+
+      const step = Math.min(3.8, distance);
+      this.x += (diffX / distance) * step;
+      this.y += (diffY / distance) * step;
+      this.x = Math.max(-20, Math.min(this.x, window.innerWidth - 76));
+      this.y = Math.max(48, Math.min(this.y, window.innerHeight - 80));
+
+      const vertical =
+        diffY / distance > 0.5 ? "S" : diffY / distance < -0.5 ? "N" : "";
+      const horizontal =
+        diffX / distance > 0.5 ? "E" : diffX / distance < -0.5 ? "W" : "";
+      this.direction = (vertical + horizontal || this.direction) as Direction;
+      return true;
+    }
+
+    keepClearOfText() {
+      const clearSpot = this.findNearestClearSpot();
+      if (!clearSpot) {
+        this.clearanceChecked = true;
+        return false;
+      }
+
+      const distance = Math.hypot(clearSpot.x - this.x, clearSpot.y - this.y);
+      if (distance < 2) {
+        this.clearanceChecked = true;
+        return false;
+      }
+
+      this.pointerOverCat = false;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        this.x = clearSpot.x;
+        this.y = clearSpot.y;
+        this.targetX = clearSpot.x;
+        this.targetY = clearSpot.y;
+        this.render();
+        this.clearanceChecked = true;
+        return false;
+      }
+
+      this.targetX = clearSpot.x;
+      this.targetY = clearSpot.y;
+      this.relocatingToClearSpot = true;
+      this.clearanceChecked = false;
+      return true;
+    }
+
+    findNearestClearSpot() {
+      const width = this.cat.offsetWidth;
+      const height = this.cat.offsetHeight;
+      const margin = 8;
+      const minX = margin;
+      const minY = margin;
+      const maxX = Math.max(minX, window.innerWidth - width - margin);
+      const maxY = Math.max(minY, window.innerHeight - height - margin);
+      const startX = Math.max(minX, Math.min(this.x, maxX));
+      const startY = Math.max(minY, Math.min(this.y, maxY));
+      const textRects = this.getVisibleTextRects();
+
+      const isClear = (x: number, y: number) => {
+        const inset = 8;
+        const catRect = {
+          left: x + inset,
+          right: x + width - inset,
+          top: y + inset,
+          bottom: y + height - inset,
+        };
+
+        return !textRects.some(
+          (rect) =>
+            catRect.left < rect.right + 5 &&
+            catRect.right > rect.left - 5 &&
+            catRect.top < rect.bottom + 5 &&
+            catRect.bottom > rect.top - 5,
+        );
+      };
+
+      if (isClear(startX, startY)) return null;
+
+      const step = 16;
+      const maxRadius = Math.ceil(
+        Math.hypot(window.innerWidth, window.innerHeight),
+      );
+
+      for (let radius = step; radius <= maxRadius; radius += step) {
+        const candidates: Array<{ x: number; y: number }> = [];
+
+        for (let offset = -radius; offset <= radius; offset += step) {
+          candidates.push(
+            { x: startX + offset, y: startY - radius },
+            { x: startX + offset, y: startY + radius },
+            { x: startX - radius, y: startY + offset },
+            { x: startX + radius, y: startY + offset },
+          );
+        }
+
+        for (const candidate of candidates) {
+          const x = Math.max(minX, Math.min(candidate.x, maxX));
+          const y = Math.max(minY, Math.min(candidate.y, maxY));
+          if (isClear(x, y)) return { x, y };
+        }
+      }
+
+      return null;
+    }
+
+    getVisibleTextRects() {
+      const main = document.querySelector("main");
+      if (!main) return [];
+
+      const walker = document.createTreeWalker(
+        main,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode(node) {
+            return node.textContent?.trim()
+              ? NodeFilter.FILTER_ACCEPT
+              : NodeFilter.FILTER_REJECT;
+          },
+        },
+      );
+      const rects: DOMRect[] = [];
+      const range = document.createRange();
+      let textNode = walker.nextNode();
+
+      while (textNode) {
+        range.selectNodeContents(textNode);
+        rects.push(
+          ...Array.from(range.getClientRects()).filter(
+            (rect) =>
+              rect.width > 0 &&
+              rect.height > 0 &&
+              rect.bottom >= 0 &&
+              rect.top <= window.innerHeight,
+          ),
+        );
+        textNode = walker.nextNode();
+      }
+
+      range.detach();
+      return rects;
+    }
+
+    setSprite(name: keyof typeof sprites, frame: number) {
+      const frames = sprites[name];
+      const sprite = frames[frame % frames.length];
+      const frameSize = 32 * this.scale;
+      this.cat.style.backgroundPosition =
+        `${sprite[0] * frameSize}px ${sprite[1] * frameSize}px`;
+    }
+
+    render() {
+      this.cat.style.transform = `translate(${this.x}px, ${this.y}px)`;
+    }
+  }
+
+  const cat = document.getElementById("profile-cat");
+  const home = document.getElementById("profile-cat-home");
+
+  if (cat && home) new ProfileCat(cat, home);
+</script>
