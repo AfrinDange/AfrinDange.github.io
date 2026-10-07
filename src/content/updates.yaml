@@ -6,22 +6,22 @@
 - id: colm-2026-attendance
   date: "2026-10-06"
   icon: map-pin
-  text: "Attending COLM 2026 at San Francisco, US."
+  text: "Attending COLM 2026 in San Francisco, US."
 
 - id: colm-2026-context-beyond-window
   date: "2026-07-01"
   icon: book
-  text: "Our position on task-triggered evolution of memory was accepted to COLM 2026 Workshop on Context Beyond Window."
+  text: "Our position on task-triggered evolution of memory was accepted at the COLM 2026 Workshop on Context Beyond Window."
 
 - id: icml-2026-structured-data-reviewer-acknowledgement
   date: "2026-07-01"
   icon: pen-line
-  text: "Received Reviewer Acknowledgement for ICML 2026 Workshop on Foundation Models for Structured Data"
+  text: "Received a reviewer acknowledgment from the ICML 2026 Workshop on Foundation Models for Structured Data."
 
 - id: icml-2026-attendance
   date: "2026-07-01"
   icon: map-pin
-  text: "Attended ICML 2026 at Seoul, Korea."
+  text: "Attended ICML 2026 in Seoul, Korea."
 
 - id: neurips-2026-reviewer
   date: "2026-06-01"
@@ -41,7 +41,7 @@
 - id: cikm-2025-attendance
   date: "2025-11-10"
   icon: map-pin
-  text: "Attended CIKM 2025 at Seoul, Korea."
+  text: "Attended CIKM 2025 in Seoul, Korea."
 
 - id: iclr-2026-reviewer
   date: "2025-11-01"
