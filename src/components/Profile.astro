@@ -1,47 +1,118 @@
 ---
-import profilePic from "../assets/profile.png";
+import { getCollection, render } from "astro:content";
+import { FileText } from "lucide-astro";
 import ProfileCat from "./ProfileCat.astro";
+
+const entries = await getCollection("introduction");
+const introduction = entries[0];
+
+if (!introduction) {
+  throw new Error("Add an introduction Markdown file in src/content/introduction.");
+}
+
+const { Content } = await render(introduction);
+const iconClasses = {
+  "google-scholar": "fas fa-graduation-cap",
+  linkedin: "fab fa-linkedin",
+  github: "fab fa-github",
+  x: "fab fa-x-twitter",
+};
 ---
 
-<section class="max-w-5xl mx-auto px-4 mt-8 flex flex-col md:flex-row items-center md:items-start gap-4">
-  <div class="flex flex-col items-center gap-5 w-full md:w-1/3 group text-center">
-    <img
-      src={profilePic.src}
-      alt="Profile photo"
-      class="w-52 h-52 sm:w-56 sm:h-56 rounded-full object-cover shadow-md ring-2 ring-[#c4b5fd] transform transition duration-300 group-hover:scale-105 group-hover:ring-theme-accent group-hover:shadow-lg"
-    />
+<section id="research" class="mx-auto max-w-5xl px-4 pb-10 pt-8 sm:px-6 md:pb-14 md:pt-12">
+  <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_12rem] md:items-start md:gap-8">
+    <div>
+      <h1 class="mb-5 text-4xl font-bold sm:text-5xl">
+        {introduction.data.greeting}<ProfileCat />
+      </h1>
 
-    <div class="flex gap-5 text-theme-textDark dark:text-theme-textLight text-2xl justify-center">
-      <a href="https://scholar.google.com/citations?user=NZFX5LIAAAAJ&hl=en&oi=ao" target="_blank" aria-label="Google Scholar" class="hover:text-theme-accent hover:scale-110 transition-transform duration-200">
-        <i class="fas fa-graduation-cap"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/afrin-dange/" target="_blank" aria-label="LinkedIn" class="hover:text-theme-accent hover:scale-110 transition-transform duration-200">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="https://github.com/AfrinDange/" target="_blank" aria-label="GitHub" class="hover:text-theme-accent hover:scale-110 transition-transform duration-200">
-        <i class="fab fa-github"></i>
-      </a>
-      <a href="https://x.com/afrin_dange/" target="_blank" aria-label="Twitter" class="hover:text-theme-accent hover:scale-110 transition-transform duration-200">
-        <i class="fab fa-x-twitter"></i>
-      </a>
+      {introduction.data.note && (
+        <aside class="profile-note">
+          <p>{introduction.data.note}</p>
+        </aside>
+      )}
+
+      <div class="introduction-content text-[0.97rem] text-theme-textDark/80 dark:text-theme-textLight/80">
+        <Content />
+      </div>
+
+      {introduction.data.researchAreas && (
+        <p class="mt-5 text-sm leading-6">
+          <strong>Research interests:</strong>
+          {introduction.data.researchAreas.join(", ")}
+        </p>
+      )}
     </div>
+
+    <aside class="flex flex-col items-center gap-4 md:pt-2">
+      <img
+        src={introduction.data.photo}
+        alt={introduction.data.photoAlt}
+        class="h-56 w-48 rounded-xl object-cover shadow-sm"
+      />
+
+      <div class="flex items-center justify-center gap-4 text-xl">
+        {introduction.data.socials.map((social) => (
+          <a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+            title={social.label}
+            class="hover:text-theme-accent"
+          >
+            <i class={iconClasses[social.icon]}></i>
+          </a>
+        ))}
+        <a
+          href="/assets/afrin_dange_cv.pdf"
+          target="_blank"
+          aria-label="Curriculum Vitae"
+          title="Curriculum Vitae"
+          class="hover:text-theme-accent"
+        >
+          <FileText class="h-5 w-5" />
+        </a>
+      </div>
+    </aside>
   </div>
-
-  <div class="flex-1 opacity-0 animate-fade-in animation-delay-150">
-    <h1 class="text-3xl font-heading font-bold mb-2">Hi, I'm Afrin<ProfileCat /></h1>  
-    
-    <p class="mb-3 text-lg text-justify">
-      I recently completed my MS by Research at 
-      <a href="https://www.minds.iitb.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:text-theme-accent underline underline-offset-2">CMInDS, IIT Bombay</a>, 
-      where I had the privilege of working with 
-      <a href="https://www.cse.iitb.ac.in/~sunita/" target="_blank" rel="noopener noreferrer" class="hover:text-theme-accent underline underline-offset-2">Prof. Sunita Sarawagi</a> 
-      on in-context learning, and the design and adaptation of foundation models for time series. Our work on instance-level adaptation for forecasting with covariates has been accepted at CIKM 2025. I was also fortunate to collaborate with 
-      <a href="https://praneethnetrapalli.org/" target="_blank" rel="noopener noreferrer" class="hover:text-theme-accent underline underline-offset-2">Dr. Praneeth Netrapalli</a>, where our joint work on in-context learning was presented at the ICML 2024 TF2M Workshop.
-    </p>
-
-    <p class="mb-3 text-lg text-justify">
-      I'm currently seeking research opportunities as a Research Assistant or Intern to explore new directions. I'm especially interested in improving architecture designs, adaptation techniques for improving generalization and reliability under uncertainty, and reasoning. I would also like to explore post-training and alignment. If you're hiring, I'd love to hear from you 🙂 
-    </p>
-  </div>
-
 </section>
+
+<style>
+  .introduction-content :global(p) {
+    margin-bottom: 0.7rem;
+    line-height: 1.65;
+    text-align: justify;
+  }
+
+  .introduction-content :global(a) {
+    color: #7c3aed;
+    text-decoration: underline;
+    text-decoration-color: rgb(124 58 237 / 0.3);
+    text-underline-offset: 3px;
+  }
+
+  .profile-note {
+    margin-bottom: 1.15rem;
+    border-left: 3px solid #7c3aed;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background: rgb(124 58 237 / 0.07);
+    padding: 0.65rem 0.9rem;
+  }
+
+  .profile-note p {
+    margin: 0;
+    color: #6d28d9;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  :global(.dark) .profile-note {
+    background: rgb(167 139 250 / 0.1);
+  }
+
+  :global(.dark) .profile-note p {
+    color: #c4b5fd;
+  }
+</style>

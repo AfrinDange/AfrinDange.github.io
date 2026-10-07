@@ -4,23 +4,27 @@ import { FileDown } from 'lucide-astro';
 ---
 
 <Layout>
-  <div class="max-w-5xl mx-auto px-4 space-y-4">
+  <div class="mx-auto max-w-6xl space-y-5 px-4 py-8 sm:px-6">
 
     <!-- Heading and Download button -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 gap-2">
-      <h1 class="text-2xl font-heading text-theme-textDark dark:text-theme-textLight">Curriculum Vitae</h1>
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-theme-accent">Experience</p>
+        <h1 class="text-4xl font-bold sm:text-5xl">Curriculum Vitae</h1>
+      </div>
       <a
         href="/assets/afrin_dange_cv.pdf"
         target="_blank"
-        aria-label="View CV"
-        class="inline-flex items-center justify-center w-12 h-12 bg-theme-accent text-white rounded-full shadow hover:opacity-90 transition"
+        aria-label="Open CV PDF"
+        class="inline-flex items-center justify-center gap-2 self-start rounded-full bg-theme-accent px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-purple-500/20 hover:bg-purple-700 sm:self-auto"
       >
-        <FileDown class="w-6 h-6" />
+        <FileDown class="h-4 w-4" />
+        Open PDF
       </a>
     </div>
 
     <!-- PDF viewer (iframe) -->
-    <div class="h-[60vh] overflow-hidden rounded border border-gray-200 dark:border-gray-700">
+    <div class="h-[68vh] overflow-hidden rounded-2xl border border-theme-textDark/10 bg-white shadow-sm dark:border-theme-textLight/10">
       <iframe
         src="/assets/afrin_dange_cv.pdf"
         title="Afrin Dange CV"

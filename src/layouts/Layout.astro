@@ -1,7 +1,7 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import VisitorCount from '../components/VisitorCount.astro';
+import Footer from "../components/Footer.astro";
+import VisitorCount from "../components/VisitorCount.astro";
+import { Moon, Sun } from "lucide-astro";
 import "../styles/global.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 ---
@@ -10,32 +10,58 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Official website of Afrin Dange, CMInDS IIT Bombay. Research in in-context learning, foundation models for time series and adaptation techniques." />
-    <meta name="keywords" content="Afrin Dange, research, time series, AI, foundation models, CMInDS, IIT Bombay, in-context learning" />
+    <meta name="description" content="Official website of Afrin Dange. Research on long-term memory for language agents, continual learning, reasoning, and foundation models." />
+    <meta name="keywords" content="Afrin Dange, research scientist, language agents, agent memory, continual learning, reasoning, foundation models, time series" />
     <meta name="author" content="Afrin Dange" />
     <title>Afrin Dange</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link id="site-favicon" rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href="https://afrindange.github.io/" />
 
     <meta property="og:title" content="Afrin Dange" />
-    <meta property="og:description" content="Research in in-context learning, foundation models for time series and adaptation techniques." />
+    <meta property="og:description" content="Research on long-term memory for language agents, continual learning, reasoning, and foundation models." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://afrindange.github.io/" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Afrin Dange" />
-    <meta name="twitter:description" content="Research in in-context learning, foundation models for time series and adaptation techniques." />
+    <meta name="twitter:description" content="Research on long-term memory for language agents, continual learning, reasoning, and foundation models." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
+    <script is:inline>
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
   </head>
-  <body class="flex flex-col min-h-screen transition-colors duration-300">
-    <Header />
-    <main class="flex-grow px-4 py-6">
+  <body class="flex min-h-screen flex-col transition-colors duration-300">
+    <div class="mx-auto flex w-full max-w-5xl justify-end px-4 pt-6 sm:px-6">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="rounded p-2 text-theme-textDark/70 hover:text-theme-accent dark:text-theme-textLight/70"
+        aria-label="Toggle color theme"
+      >
+        <Sun class="hidden h-5 w-5 dark:block" />
+        <Moon class="block h-5 w-5 dark:hidden" />
+      </button>
+    </div>
+
+    <script is:inline>
+      document.getElementById("theme-toggle")?.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      });
+    </script>
+
+    <main class="flex-grow">
       <slot />
     </main>
+
     <VisitorCount />
     <Footer />
   </body>

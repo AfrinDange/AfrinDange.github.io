@@ -4,18 +4,19 @@
 
 @layer base {
   body {
-    @apply font-sans text-theme-textDark bg-theme-bgLight dark:text-theme-textLight dark:bg-theme-bgDark;
+    @apply font-sans text-theme-textDark bg-theme-bgLight dark:text-theme-textLight dark:bg-theme-bgDark antialiased;
   }
 
-  p  { @apply text-lg leading-relaxed; }
-
+  p {
+    @apply leading-7;
+  }
 
   h1, h2, h3, h4 {
-    @apply font-heading text-theme-textDark dark:text-theme-textLight text-4xl md:text-5xl leading-tight;
+    @apply font-heading text-theme-textDark dark:text-theme-textLight leading-tight;
   }
 
   a {
-    @apply hover:text-theme-accent hover:underline hover:underline-offset-2 transition-colors;
+    @apply transition-colors;
   }
 
   header, footer {
@@ -31,7 +32,7 @@
   }
 
   a, button {
-    @apply transition-colors;
+    @apply transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-theme-bgDark;
   }
 }
 

@@ -56,11 +56,11 @@ export default {
         //   accent: '#7c3aed',      // Purple (unchanged)
         // }
         theme: {
-          bgLight: '#fefefe',     // Almost white
-          bgDark: '#1e1e2e',      // Subtle indigo-black
-          textLight: '#fefefe',   // Matching background
-          textDark: '#101010',    // Clean dark text
-          accent: '#7c3aed',      // Purple (unchanged)
+          bgLight: '#fdfdfd',
+          bgDark: '#18181b',
+          textLight: '#f8f6fb',
+          textDark: '#211d25',
+          accent: '#7c3aed',
         }
       },
       typography: (theme) => ({
