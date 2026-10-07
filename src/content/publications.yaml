@@ -1,0 +1,33 @@
+- id: tfmadapter
+  title: "TFMAdapter: Lightweight Instance-Level Adaptation of Foundation Models for Forecasting with Covariates"
+  authors:
+    - name: "Afrin Dange"
+      me: true
+    - name: "Sunita Sarawagi"
+  venue: "CIKM 2025"
+  year: 2025
+  highlight: "Oral presentation"
+  image: "/images/publications/tfmadapter.png"
+  imageAlt: "Diagram of the TFMAdapter method"
+  featured: true
+  links:
+    code: "https://github.com/AfrinDange/tfmadapter"
+    paper: "https://doi.org/10.1145/3746252.3761272"
+    bibtex: "/bibtex/tfmadapter.bib"
+
+- id: transformer-designs-icl
+  title: "Transformer Designs for In-Context Learning in Foundation Models for Time Series Forecasting with Covariates"
+  authors:
+    - name: "Afrin Dange"
+      me: true
+    - name: "Vaibhav Raj"
+    - name: "Praneeth Netrapalli"
+    - name: "Sunita Sarawagi"
+  venue: "ICML 2024 Workshop on Theoretical Foundations of Foundation Models"
+  year: 2024
+  image: "/images/publications/variants_icml2024_tf2m.png"
+  imageAlt: "Comparison of transformer designs for time series forecasting"
+  featured: true
+  links:
+    paper: "https://openreview.net/forum?id=cEMQhGJfcP"
+    bibtex: "/bibtex/transformer-designs-icl.bib"

@@ -1,0 +1,109 @@
+# - id: amazon-one-year
+#   date: "2026-10-13"
+#   icon: book-open
+#   text: "Completed 1 year at Amazon as a Research Scientist"
+
+- id: colm-2026-attendance
+  date: "2026-10-06"
+  icon: map-pin
+  text: "Attending COLM 2026 at San Francisco, US."
+
+- id: colm-2026-context-beyond-window
+  date: "2026-07-01"
+  icon: book
+  text: "Our position on task-triggered evolution of memory was accepted to COLM 2026 Workshop on Context Beyond Window."
+
+- id: icml-2026-structured-data-reviewer-acknowledgement
+  date: "2026-07-01"
+  icon: pen-line
+  text: "Received Reviewer Acknowledgement for ICML 2026 Workshop on Foundation Models for Structured Data"
+
+- id: icml-2026-attendance
+  date: "2026-07-01"
+  icon: map-pin
+  text: "Attended ICML 2026 at Seoul, Korea."
+
+- id: neurips-2026-reviewer
+  date: "2026-06-01"
+  icon: pen-line
+  text: "Served as a reviewer for NeurIPS 2026."
+
+- id: icml-2026-structured-data-reviewer
+  date: "2026-06-01"
+  icon: pen-line
+  text: "Served as a reviewer for ICML 2026 Workshop on Foundation Models for Structured Data."
+
+- id: iclr-2026-time-series-reviewer
+  date: "2026-02-01"
+  icon: pen-line
+  text: "Served as a reviewer for ICLR 2026 Workshop on Time Series in the Age of Language Models."
+
+- id: cikm-2025-attendance
+  date: "2025-11-10"
+  icon: map-pin
+  text: "Attended CIKM 2025 at Seoul, Korea."
+
+- id: iclr-2026-reviewer
+  date: "2025-11-01"
+  icon: pen-line
+  text: "Served as a reviewer for ICLR 2026."
+
+- id: amazon-lab126-research-scientist
+  date: "2025-10-13"
+  icon: book-open
+  text: "Joined Amazon Lab126 as a Research Scientist, working on Long-Term Memory for Language Agents."
+
+- id: cikm-2025-acceptance
+  date: "2025-08-01"
+  icon: book
+  text: "Our work on instance-level adaptation of time series foundation models was accepted for an oral presentation at CIKM 2025."
+
+- id: llm-summer-school-2025
+  date: "2025-07-01"
+  icon: map-pin
+  text: "Attended the LLM Summer School in Yerevan, Armenia."
+
+- id: ms-thesis-defense
+  date: "2025-06-01"
+  icon: graduation-cap
+  text: "Completed my MS thesis defense."
+
+- id: icml-structured-data-reviewer
+  date: "2025-05-01"
+  icon: pen-line
+  text: "Served as a reviewer for the ICML 2025 Workshop on Foundation Models for Structured Data."
+
+- id: deepmind-research-symposium
+  date: "2025-01-15"
+  icon: map-pin
+  text: "Attended the Google DeepMind Research Symposium in Bangalore, India."
+
+- id: iisc-rl-workshop
+  date: "2025-01-10"
+  icon: map-pin
+  text: "Attended the reinforcement learning workshop at IISc Bangalore, India."
+
+- id: cs726-teaching-assistant
+  date: "2025-01-01"
+  icon: book-open
+  text: "Worked as a teaching assistant for CS726: Advanced Machine Learning."
+
+- id: iclr-2025-reviewer
+  date: "2024-11-01"
+  icon: pen-line
+  text: "Served as a reviewer for ICLR 2025."
+
+- id: conditional-generation-talk
+  date: "2024-08-01"
+  icon: mic
+  text: "Gave a talk titled \"Conditional Generation Using GANs and Diffusion Models.\""
+
+- id: icml-tf2m-2024-acceptance
+  date: "2024-07-01"
+  icon: book
+  text: "Our work on transformer designs for in-context learning in time series foundation models was accepted at the ICML 2024 TF2M Workshop."
+
+- id: generative-ai-vision-talk
+  date: "2024-02-01"
+  icon: mic
+  text: "Gave a talk titled \"Generative AI for Vision.\""
