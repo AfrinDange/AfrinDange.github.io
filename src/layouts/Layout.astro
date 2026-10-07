@@ -4,27 +4,59 @@ import VisitorCount from "../components/VisitorCount.astro";
 import { Moon, Sun } from "lucide-astro";
 import "../styles/global.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  structuredData?: Record<string, unknown>;
+}
+
+const {
+  title = "Afrin Dange | Research Scientist",
+  description = "Afrin Dange is a Research Scientist working on long-term memory for language agents, continual learning, reasoning, and foundation models.",
+  canonicalPath = "/",
+  structuredData,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://afrindange.github.io/");
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
+const socialImageUrl = new URL("/images/profile.png", siteUrl).toString();
 ---
 
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Official website of Afrin Dange. Research on long-term memory for language agents, continual learning, reasoning, and foundation models." />
-    <meta name="keywords" content="Afrin Dange, research scientist, language agents, agent memory, continual learning, reasoning, foundation models, time series" />
+    <meta name="description" content={description} />
     <meta name="author" content="Afrin Dange" />
-    <title>Afrin Dange</title>
+    <meta name="robots" content="index, follow" />
+    <title>{title}</title>
     <link id="site-favicon" rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href="https://afrindange.github.io/" />
+    <link rel="canonical" href={canonicalUrl} />
 
-    <meta property="og:title" content="Afrin Dange" />
-    <meta property="og:description" content="Research on long-term memory for language agents, continual learning, reasoning, and foundation models." />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://afrindange.github.io/" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Afrin Dange" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:alt" content="Portrait of Afrin Dange" />
 
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Afrin Dange" />
-    <meta name="twitter:description" content="Research on long-term memory for language agents, continual learning, reasoning, and foundation models." />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content="Portrait of Afrin Dange" />
+
+    {structuredData && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(structuredData)}
+      ></script>
+    )}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
